@@ -1,11 +1,33 @@
 "use client";
-import { FaRandom } from "react-icons/fa";
+import { LiaRandomSolid } from "react-icons/lia";
 
-import ReactSelect from "react-select";
 import RangeSlider from "./RangeSlider";
 import SeedInput from "./SeedInput";
 
+import ReactSelectInput from "./ReactSelectInput";
+import { useState } from "react";
+
 export default function TableToolbar() {
+  const [errors, setErrors] = useState<number>(0);
+  const [seeds, setSeeds] = useState<number>(0);
+
+  const handleErrorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const parsedValue = parseInt(event.target.value, 10);
+    // Clamp the value between 0 and 1000
+    const newValue = Math.max(0, Math.min(1000, parsedValue || 0));
+    setErrors(newValue);
+  };
+
+  const handleSeedsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const parsedValue = parseInt(event.target.value, 10);
+    const newValue = Math.max(
+      0,
+      Math.min(1000000000000000000000000000, parsedValue || 0)
+    );
+    // Clamp the value between 0 and 1000
+    setSeeds(newValue);
+  };
+
   const options = [
     { value: "USA", label: "USA" },
     { value: "POLAND", label: "POLAND" },
@@ -13,37 +35,40 @@ export default function TableToolbar() {
   ];
 
   return (
-    <div className="border-2 border-neutral-700 divide-x-2 font-medium rounded-md mb-6 divide-neutral-700 bg-neutral-900 flex flex-row items-center">
-      <div className="w-1/4 p-4 py-3 flex flex-col space-y-2">
+    <div className="border-2 border-neutral-700 divide-x-2 font-semibold rounded-md mb-6 divide-neutral-700 bg-neutral-900 flex flex-row items-center">
+      <div className="w-1/4 p-3 py-3 flex flex-col space-y-2">
         <span className="text-sm text-neutral-500">Region</span>
         <div>
-          <ReactSelect options={options} />
+          <ReactSelectInput options={options} />
         </div>
       </div>
-      <div className="w-1/4 p-4 py-3 flex flex-col space-y-2">
+      <div className="w-1/4 p-3 py-3 flex flex-col space-y-2">
         <span className="text-sm text-neutral-500">Errors</span>
         <div className="flex flex-row">
-          <RangeSlider />
+          <RangeSlider errors={errors} handleChange={handleErrorChange} />
           <input
+            min={0}
+            max={1000}
             type="text"
+            onChange={handleErrorChange}
             className="p-2 text-sm w-1/3 ml-4 rounded bg-neutral-700"
-            value={100}
+            value={errors}
           />
         </div>
       </div>
-      <div className="w-1/4 p-4 py-3 flex flex-col space-y-2">
+      <div className="w-1/4 p-3 py-3 flex flex-col space-y-2">
         <span className="text-sm text-neutral-500">Seed</span>
         <div className="flex flex-row">
-          <SeedInput />
-          <button className="p-3 text-sm bg-neutral-700 rounded ml-2">
-            <FaRandom className="size-5" />
+          <SeedInput value={seeds} handleChange={handleSeedsChange} />
+          <button className="p-2 outline-none text-sm bg-neutral-700 rounded ml-2">
+            <LiaRandomSolid className="size-5" />
           </button>
         </div>
       </div>
-      <div className="w-1/4 p-4 py-3 flex flex-col space-y-2">
+      <div className="w-1/4 p-3 py-3 flex flex-col space-y-2">
         <span className="text-sm text-neutral-500">Export</span>
 
-        <button className="p-3 text-sm bg-neutral-700 rounded">EXPORT</button>
+        <button className="p-2 text-sm bg-neutral-700 rounded">EXPORT</button>
       </div>
     </div>
   );
