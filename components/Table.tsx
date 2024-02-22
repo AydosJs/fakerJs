@@ -8,8 +8,6 @@ function Table() {
   }
   const { users, loading } = context;
 
-  console.log("users", users);
-
   return (
     <table className="table-auto w-full p-10 font-medium">
       <thead className="bg-neutral-900">

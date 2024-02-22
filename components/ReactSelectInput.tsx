@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { FakerMap } from "@/types/types";
 import Select from "react-select";
 
 const controlStyles = {
@@ -29,33 +30,20 @@ const groupHeadingStyles = "ml-3 mt-2 mb-1 text-gray-500 text-sm";
 const noOptionsMessageStyles =
   "text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm";
 
-type ReactSelectTypes = {
-  showArrows?: boolean;
-  placeholder?: string;
-
-  options: { value: string; label: string }[];
-  onchangeFn?: () => void;
-  onInputChangeFn?: (inputValue: string) => void;
+export type ReactSelectTypes = {
+  value: keyof FakerMap;
+  label: string;
 };
 
-const ReactSelectInput = ({
-  showArrows = true,
-  onchangeFn,
-  options,
-  onInputChangeFn,
-  placeholder,
-}: ReactSelectTypes) => {
+export type OnChangeFunction = (value: ReactSelectTypes) => void;
+
+const ReactSelectInput = (props: any) => {
   return (
     <Select
-      placeholder={placeholder}
-      options={options}
-      onChange={onchangeFn}
-      onInputChange={onInputChangeFn}
-      components={
-        showArrows
-          ? {}
-          : { DropdownIndicator: () => null, IndicatorSeparator: () => null }
-      }
+      components={{
+        DropdownIndicator: () => null,
+        IndicatorSeparator: () => null,
+      }}
       unstyled
       styles={{
         input: (base) => ({
@@ -99,6 +87,7 @@ const ReactSelectInput = ({
           ),
         noOptionsMessage: () => noOptionsMessageStyles,
       }}
+      {...props}
     />
   );
 };

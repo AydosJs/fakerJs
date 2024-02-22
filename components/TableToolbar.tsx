@@ -4,15 +4,24 @@ import { LiaRandomSolid } from "react-icons/lia";
 import RangeSlider from "./RangeSlider";
 import SeedInput from "./SeedInput";
 
-import ReactSelectInput from "./ReactSelectInput";
+import ReactSelectInput, {
+  OnChangeFunction,
+  ReactSelectTypes,
+} from "./ReactSelectInput";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context/Provider";
-import { Params } from "@/types/types";
+import { FakerMap, Params } from "@/types/types";
 import axios from "axios";
+import { localization } from "@/lib/utils";
 
 export default function TableToolbar() {
   const [errors, setErrors] = useState<number>(0);
   const [seeds, setSeeds] = useState<number>(0);
+  const [region, setRegion] = useState<ReactSelectTypes>({
+    value: "en_US",
+    label: "English (United States)",
+  });
+
   const context = useGlobalContext();
 
   if (!context) {
@@ -37,18 +46,12 @@ export default function TableToolbar() {
     setSeeds(newValue);
   };
 
-  const options = [
-    { value: "USA", label: "USA" },
-    { value: "POLAND", label: "POLAND" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
-
   const fetchUsers = async () => {
     try {
       const params: Params = {
         errors: errors,
         seed: seeds,
-        region: "uk",
+        region: region.value,
       };
 
       const res = await axios.get("http://localhost:3000/api/users", {
@@ -58,16 +61,29 @@ export default function TableToolbar() {
     } catch (error) {}
   };
 
+  const handleChange: OnChangeFunction = (value) => {
+    setRegion(() => {
+      return {
+        value: value.value,
+        label: value.label,
+      };
+    });
+  };
+
   useEffect(() => {
     fetchUsers();
-  }, [errors, seeds]);
+  }, [errors, seeds, region]);
 
   return (
     <div className="border-2 border-neutral-700 divide-x-2 font-semibold rounded-md mb-6 divide-neutral-700/40 bg-neutral-900 flex flex-row items-center">
       <div className="w-1/4 p-3 py-3 flex flex-col space-y-2">
         <span className="text-sm text-neutral-500">Region</span>
         <div>
-          <ReactSelectInput options={options} />
+          <ReactSelectInput
+            value={region}
+            options={localization}
+            onChange={handleChange}
+          />
         </div>
       </div>
       <div className="w-1/4 p-3 py-3 flex flex-col space-y-2">
