@@ -1,13 +1,10 @@
-"use client";
-import { useGlobalContext } from "@/context/Provider";
+import { UserData } from "@/types/types";
 
-function Table() {
-  const context = useGlobalContext();
-  if (!context) {
-    throw new Error("Component must be used within a Provider");
-  }
-  const { users, loading } = context;
+type Props = {
+  users: UserData[];
+};
 
+function Table({ users }: Props) {
   return (
     <table className="table-auto w-full p-10 font-medium">
       <thead className="bg-neutral-900">

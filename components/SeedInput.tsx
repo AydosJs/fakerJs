@@ -9,7 +9,7 @@ function SeedInput({ value, handleChange }: Props) {
       value={value}
       onChange={handleChange}
       type="text"
-      className="outline-none p-2 text-sm rounded bg-neutral-700 w-full"
+      className="outline-none p-2 text-sm rounded hover:bg-neutral-700/70 focus:ring-2 focus:ring-neutral-600 bg-neutral-700 w-full"
     />
   );
 }
