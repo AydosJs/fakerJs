@@ -14,7 +14,7 @@ export default function Home() {
     <main className="container p-10">
       <TableToolbar />
 
-      {loading && (
+      {users.length === 0 && loading && (
         <div className="border-2 border-neutral-700 rounded-md overflow-hidden">
           <div className="rounded p-2 px-3 w-full mx-auto">
             <div className="animate-pulse flex space-x-4">
@@ -38,9 +38,15 @@ export default function Home() {
         </div>
       )}
 
-      {users.length !== 0 && !loading && (
-        <div className="border-2 border-neutral-700 rounded-md overflow-hidden">
+      {users.length !== 0 && (
+        <div className="relative border-2 border-neutral-700 rounded-md overflow-hidden">
           <Table users={users} />
+
+          {loading && (
+            <div className="absolute flex items-center justify-center w-full h-full top-0 left-0 bg-neutral-950 bg-opacity-70">
+              ...loading
+            </div>
+          )}
         </div>
       )}
     </main>
