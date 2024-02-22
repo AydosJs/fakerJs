@@ -5,11 +5,20 @@ import RangeSlider from "./RangeSlider";
 import SeedInput from "./SeedInput";
 
 import ReactSelectInput from "./ReactSelectInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "@/context/Provider";
+import { Params } from "@/types/types";
+import axios from "axios";
 
 export default function TableToolbar() {
   const [errors, setErrors] = useState<number>(0);
   const [seeds, setSeeds] = useState<number>(0);
+  const context = useGlobalContext();
+
+  if (!context) {
+    throw new Error("Component must be used within a Provider");
+  }
+  const { setUsers } = context;
 
   const handleErrorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const parsedValue = parseInt(event.target.value, 10);
@@ -34,8 +43,27 @@ export default function TableToolbar() {
     { value: "vanilla", label: "Vanilla" },
   ];
 
+  const fetchUsers = async () => {
+    try {
+      const params: Params = {
+        errors: errors,
+        seed: seeds,
+        region: "uk",
+      };
+
+      const res = await axios.get("http://localhost:3000/api/users", {
+        params,
+      });
+      setUsers(res.data.users);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [errors, seeds]);
+
   return (
-    <div className="border-2 border-neutral-700 divide-x-2 font-semibold rounded-md mb-6 divide-neutral-700 bg-neutral-900 flex flex-row items-center">
+    <div className="border-2 border-neutral-700 divide-x-2 font-semibold rounded-md mb-6 divide-neutral-700/40 bg-neutral-900 flex flex-row items-center">
       <div className="w-1/4 p-3 py-3 flex flex-col space-y-2">
         <span className="text-sm text-neutral-500">Region</span>
         <div>

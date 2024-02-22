@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { GlobalContextProvider } from "@/context/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} h-full min-h-screen bg-neutral-950`}>
-        {children}
-      </body>
+      <GlobalContextProvider>
+        <body
+          className={`${inter.className} h-full min-h-screen bg-neutral-950`}
+        >
+          {children}
+        </body>
+      </GlobalContextProvider>
     </html>
   );
 }
