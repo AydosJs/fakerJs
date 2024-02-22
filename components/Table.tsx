@@ -24,7 +24,7 @@ function Table({ users }: Props) {
               index % 2 === 0 ? "bg-neutral-800/70" : "bg-neutral-800/90"
             }`}
           >
-            <td className="px-4 py-4 text-left text-sm">{index}</td>
+            <td className="px-4 py-4 text-left text-sm">{index + 1}</td>
             <td className="px-4 py-4 text-left text-sm">{user.id}</td>
             <td className="px-4 py-4 text-left text-sm">{user.name}</td>
             <td className="px-4 py-4 text-left text-sm">{`${user.address.city}, ${user.address.state}, ${user.address.street}, ${user.address.zipCode}`}</td>
