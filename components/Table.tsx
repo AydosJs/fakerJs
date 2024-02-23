@@ -1,7 +1,6 @@
 "use client";
 import { useGlobalContext } from "@/context/Provider";
 import { useDebounce } from "@/lib/hooks";
-import { LIMIT } from "@/lib/utils";
 import axios from "axios";
 import { slice } from "lodash";
 import { useEffect } from "react";
@@ -16,8 +15,6 @@ function Table() {
     params: paramContext,
     setUsers,
     endOffset,
-    loading,
-    setEndOffset,
     setLoading,
   } = context;
 
