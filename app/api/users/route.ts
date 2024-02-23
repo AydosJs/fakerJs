@@ -84,7 +84,10 @@ export async function GET(req: NextRequest) {
     //   (user as any)[randomField] = fieldValue;
     // }
 
-    for (let j = 0; j < Number(errors) || 0; j++) {
+    let senitizedError =
+      Number(errors) > 100 ? Number(errors) / 2 : Number(errors);
+
+    for (let j = 0; j < Math.floor(senitizedError); j++) {
       const randomField =
         Object.keys(user)[Math.floor(Math.random() * Object.keys(user).length)];
 
