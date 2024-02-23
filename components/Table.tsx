@@ -35,7 +35,7 @@ function Table() {
         params,
       });
 
-      setUsers(() => slice(res.data.users, 0, endOffset));
+      setUsers(() => slice(res.data.users, 0, endOffset + 10));
 
       setLoading(false);
     } catch (error) {
