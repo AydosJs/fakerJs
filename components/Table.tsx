@@ -28,7 +28,7 @@ function Table() {
         errors: paramContext.errors,
         seed: paramContext.seeds,
         region: paramContext.region.value,
-        endOffset: endOffset,
+        endOffset: endOffset + 10,
       };
 
       const res = await axios.get(`/api/users`, {
@@ -36,6 +36,7 @@ function Table() {
       });
 
       setUsers(() => slice(res.data.users, 0, endOffset));
+
       setLoading(false);
     } catch (error) {
       console.error(error);
