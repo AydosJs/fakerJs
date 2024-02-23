@@ -34,7 +34,7 @@ function Table() {
         endOffset: endOffset,
       };
 
-      const res = await axios.get("http://localhost:3000/api/users", {
+      const res = await axios.get(`/api/users`, {
         params,
       });
 
