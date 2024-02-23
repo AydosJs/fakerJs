@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const LIMIT = 20;
+export const LIMIT = 10;
 
 const {
   fakerAF_ZA,

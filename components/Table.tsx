@@ -61,6 +61,7 @@ function Table() {
               <th className="px-4 py-4 text-left text-sm">Random Identifier</th>
               <th className="px-4 py-4 text-left text-sm">Full Name</th>
               <th className="px-4 py-4 text-left text-sm">Address</th>
+              <th className="px-4 py-4 text-left text-sm">ZipCode</th>
               <th className="px-4 py-4 text-left text-sm">Phone</th>
             </tr>
           </thead>
@@ -75,7 +76,8 @@ function Table() {
                 <td className="px-4 py-4 text-left text-sm">{index + 1}</td>
                 <td className="px-4 py-4 text-left text-sm">{user.id}</td>
                 <td className="px-4 py-4 text-left text-sm">{user.name}</td>
-                <td className="px-4 py-4 text-left text-sm">{`${user.address.city}, ${user.address.state}, ${user.address.street}, ${user.address.zipCode}`}</td>
+                <td className="px-4 py-4 text-left text-sm">{`${user.address.city}, ${user.address.state}, ${user.address.street}`}</td>
+                <td className="px-4 py-4 text-left text-sm">{`${user.address.zipCode}`}</td>
                 <td className="px-4 py-4 text-left text-sm">{user.phone}</td>
               </tr>
             ))}
