@@ -17,7 +17,24 @@ export default function Home() {
 
   return (
     <main className="container p-4 sm:p-10 sm:py-6 ">
-      <TableToolbar />
+      {users.length === 0 && (
+        <div className="border-2 border-neutral-700 rounded-md overflow-hidden mb-6 ">
+          <div className="rounded p-2 px-3 w-full mx-auto">
+            <div className="animate-pulse flex space-x-4">
+              <div className="flex-1 space-y-3 py-1">
+                <div className="grid md:grid-cols-4 gap-3">
+                  <div className="h-10 md:h-20 bg-neutral-700 rounded col-span-1"></div>
+                  <div className="h-10 md:h-20 bg-neutral-700 rounded col-span-1"></div>
+                  <div className="h-10 md:h-20 bg-neutral-700 rounded col-span-1"></div>
+                  <div className="h-10 md:h-20 bg-neutral-700 rounded col-span-1"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {users.length !== 0 && <TableToolbar />}
 
       {users.length === 0 && (
         <div className="border-2 border-neutral-700 rounded-md overflow-hidden">
