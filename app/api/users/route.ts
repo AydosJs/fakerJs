@@ -1,25 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { faker } from "@faker-js/faker";
-import { FakerMap, Params, UserData } from "@/types/types";
+import { FakerMap, UserData } from "@/types/types";
 import { fakerMap } from "@/lib/utils";
 
-type Param = {
-  params: Params;
-};
-
-export async function GET(req: NextRequest, { params }: Param) {
+export async function GET(req: NextRequest) {
   const region = req.nextUrl.searchParams.get("region");
   const errors = req.nextUrl.searchParams.get("errors");
   const seed = req.nextUrl.searchParams.get("seed");
+  const endOffset = req.nextUrl.searchParams.get("endOffset");
 
   const currentFaker = faker.helpers.arrayElement([
     fakerMap[region as keyof FakerMap] || fakerMap["en_US"],
   ]);
 
   currentFaker.seed(Number(seed) || 0);
-
   const users: UserData[] = [];
-  for (let i = 0; i < 20; i++) {
+
+  for (let i = 0; i < Number(endOffset); i++) {
     const user: UserData = {
       id: currentFaker.string.uuid(),
       name: currentFaker.person.fullName(),

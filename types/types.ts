@@ -2,6 +2,8 @@ export type Params = {
   errors?: number;
   seed?: number;
   region?: keyof FakerMap;
+
+  page?: number;
 };
 export interface UserData {
   id: string;

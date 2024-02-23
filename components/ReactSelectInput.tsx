@@ -3,9 +3,9 @@ import { FakerMap } from "@/types/types";
 import Select from "react-select";
 
 const controlStyles = {
-  base: "rounded hover:cursor-pointer dark:border-none truncate bg-neutral-700 text-sm hover:bg-neutral-700/70 ",
-  focus: "ring-2 ring-neutral-600",
-  nonFocus: "",
+  base: "rounded outline-none hover:cursor-pointer dark:border-none truncate bg-neutral-700 text-sm hover:bg-neutral-700/70 ",
+  focus: "outline-none ring-2 ring-neutral-600",
+  nonFocus: "outline-none",
 };
 const placeholderStyles = "text-neutral-400 p-2 px-2";
 const selectInputStyles = "pl-2 py-2";
